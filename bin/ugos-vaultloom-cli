@@ -1,0 +1,120 @@
+#!/usr/bin/env python3
+"""UGOS Pro Linux CLI Entrypoint for VaultLoom Bitemporal Subspace NAS Skill."""
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+import tempfile
+from pathlib import Path
+
+SKILL_ROOT = Path(__file__).resolve().parent.parent
+if str(SKILL_ROOT) not in sys.path:
+    sys.path.insert(0, str(SKILL_ROOT))
+
+from src.bitemporal_subspace_vault import run_vault_recall_and_upgrade_benchmark  # noqa: E402
+from src.dp_woodbury_personalizer import DpWoodburyPersonalizer  # noqa: E402
+from src.grid_and_conformance import NodeGrid  # noqa: E402
+from src.local_skill_service import VaultLoomServiceState, create_loopback_http_server  # noqa: E402
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(prog="ugos-vaultloom-cli", description="UGOS VaultLoom Private NAS Brain CLI")
+    parser.add_argument(
+        "--grid",
+        default=str(SKILL_ROOT / "config" / "subspace_vault_grid.json"),
+        help="Path to NodeGrid JSON schema",
+    )
+    parser.add_argument("--db", default="", help="Path to SQLite WAL vault file")
+    parser.add_argument("--regime", default="home_family_nas_regime", help="Active NodeGrid regime")
+
+    sub = parser.add_subparsers(dest="command", required=True)
+    sub.add_parser("healthcheck", help="Verify SQLite WAL + FTS5, 24-d Procrustes footprint, and 256B WASM triage")
+    sub.add_parser("benchmark", help="Run bitemporal Recall@5, zero-reindex upgrade, and DP-Woodbury benchmark")
+
+    p_idx = sub.add_parser("index", help="Index or update a bitemporal NAS file record")
+    p_idx.add_argument("--path", required=True)
+    p_idx.add_argument("--modality", default="text")
+    p_idx.add_argument("--text", required=True)
+    p_idx.add_argument("--valid-from", type=int, default=1)
+
+    p_srch = sub.add_parser("search", help="Run hybrid FTS5 BM25 + 24-d subspace RRF search")
+    p_srch.add_argument("--query", required=True)
+    p_srch.add_argument("--as-of", type=int, default=None)
+
+    p_tri = sub.add_parser("triage", help="Classify file signals via 256B local triage cartridge")
+    p_tri.add_argument("--features", required=True, help="Comma-separated 3 floats: code,media,record")
+
+    p_red = sub.add_parser("redact", help="Deterministically strip PII before external share")
+    p_red.add_argument("--text", required=True)
+
+    p_srv = sub.add_parser("serve", help="Run loopback-only HTTP JSON service")
+    p_srv.add_argument("--port", type=int, required=True)
+
+    args = parser.parse_args(argv)
+    grid = NodeGrid.from_json_file(args.grid)
+
+    if args.command == "benchmark":
+        with tempfile.TemporaryDirectory() as tmp_d:
+            vault_bench = run_vault_recall_and_upgrade_benchmark(Path(tmp_d) / "bench.sqlite", grid, args.regime)
+            dp_bench = DpWoodburyPersonalizer(grid).run_personalization_benchmark(args.regime)
+            print(json.dumps({"vault_benchmark": vault_bench, "dp_woodbury_benchmark": dp_bench}, indent=1))
+        return 0
+
+    if args.db:
+        db_file = Path(args.db)
+        state = VaultLoomServiceState(db_file, grid, regime_id=args.regime)
+        owns_temp = None
+    else:
+        owns_temp = tempfile.TemporaryDirectory()
+        db_file = Path(owns_temp.name) / "ephemeral_vault.sqlite"
+        state = VaultLoomServiceState(db_file, grid, regime_id=args.regime)
+
+    try:
+        if args.command == "healthcheck":
+            _, resp = state.handle_action("/v1/health", {})
+            print(json.dumps(resp))
+            return 0
+        if args.command == "index":
+            _, resp = state.handle_action(
+                "/v1/index",
+                {
+                    "logical_path": args.path,
+                    "modality": args.modality,
+                    "content_text": args.text,
+                    "valid_from": args.valid_from,
+                    "recorded_at": args.valid_from,
+                },
+            )
+            print(json.dumps(resp))
+            return 0
+        if args.command == "search":
+            _, resp = state.handle_action(
+                "/v1/search",
+                {"query_text": args.query, "as_of_time": args.as_of},
+            )
+            print(json.dumps(resp))
+            return 0
+        if args.command == "triage":
+            vec = [float(x.strip()) for x in str(args.features).split(",")]
+            _, resp = state.handle_action("/v1/triage", {"features_3d": vec})
+            print(json.dumps(resp))
+            return 0
+        if args.command == "redact":
+            _, resp = state.handle_action("/v1/redact", {"text": args.text})
+            print(json.dumps(resp))
+            return 0
+        if args.command == "serve":
+            srv = create_loopback_http_server(state, port=args.port)
+            srv.serve_forever()
+            return 0
+    finally:
+        state.vault.close()
+        if owns_temp is not None:
+            owns_temp.cleanup()
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

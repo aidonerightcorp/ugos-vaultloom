@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ugos-vaultloom"
+version = "1.0.0"
+description = "Zero-Cloud Bitemporal SQLite FTS5 + 24-d Orthogonal Procrustes Subspace & DP-Woodbury Personalization Skill for UGOS Pro AI NAS"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+  {name = "aidonerightcorp"}
+]
+dependencies = [
+  "numpy>=1.24"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.4"
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

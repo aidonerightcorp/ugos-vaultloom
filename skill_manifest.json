@@ -1,0 +1,31 @@
+{
+  "skill_id": "ugos.vaultloom.bitemporal_subspace_vault",
+  "display_title": "UGOS VaultLoom — Private Bitemporal Subspace Brain",
+  "version": "1.0.0",
+  "license": "MIT",
+  "target_os": "UGOS Pro (Debian Linux 12+, x86_64 / ARM64)",
+  "target_hardware_profile": "UGREEN NASync iDX6011 Pro / DXP Series",
+  "network_egress_policy": "zero_cloud_loopback_only",
+  "entrypoints": {
+    "cli": "bin/ugos-vaultloom-cli",
+    "loopback_service_module": "src.local_skill_service",
+    "selftest_script": "install_and_selftest.sh",
+    "browser_studio": "web/ugos-nas-vaultloom.html"
+  },
+  "resource_envelope": {
+    "subspace_dim": 24,
+    "bytes_per_indexed_file": 96,
+    "baseline_1024d_bytes_per_file": 4096,
+    "vector_ram_reduction_pct": 97.66,
+    "ram_for_one_million_files_mb": 96.0,
+    "local_triage_cartridge_bytes": 256
+  },
+  "capabilities": [
+    "bitemporal_sqlite_wal_fts5_index",
+    "procrustes_24d_cross_modal_bridge",
+    "zero_reindex_encoder_upgrade",
+    "dp_woodbury_multi_user_personalizer",
+    "wasm_256b_local_file_triage",
+    "deterministic_pii_share_redactor"
+  ]
+}

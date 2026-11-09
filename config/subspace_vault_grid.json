@@ -1,0 +1,329 @@
+{
+  "schema_id": "universal.bitemporal_subspace_vault_grid.v1",
+  "generation": 1,
+  "seeds": [13, 29, 47, 67, 97],
+  "lifecycle_stages": [
+    "represented",
+    "applicable",
+    "proposed",
+    "dispatched",
+    "evaluated",
+    "verified",
+    "promoted"
+  ],
+  "parameters": [
+    {
+      "axis_id": "subspace_dim",
+      "kind": "choice",
+      "choices": [16, 24, 32, 48],
+      "default": 24,
+      "bounds": {
+        "min_value": 16,
+        "max_value": 48,
+        "expansion_step": 16
+      }
+    },
+    {
+      "axis_id": "raw_encoder_dim",
+      "kind": "choice",
+      "choices": [512, 768, 1024, 1536],
+      "default": 1024,
+      "bounds": {
+        "min_value": 512,
+        "max_value": 1536,
+        "expansion_step": 512
+      }
+    },
+    {
+      "axis_id": "rrf_rank_constant",
+      "kind": "integer_range",
+      "low": 10,
+      "high": 80,
+      "step": 10,
+      "default": 60,
+      "bounds": {
+        "min_value": 10,
+        "max_value": 80,
+        "expansion_step": 20
+      }
+    },
+    {
+      "axis_id": "rrf_semantic_weight",
+      "kind": "choice",
+      "choices": [0.4, 0.55, 0.65, 0.75],
+      "default": 0.65,
+      "bounds": {
+        "min_value": 0.3,
+        "max_value": 0.85,
+        "expansion_step": 0.1
+      }
+    },
+    {
+      "axis_id": "search_top_k",
+      "kind": "integer_range",
+      "low": 3,
+      "high": 20,
+      "step": 1,
+      "default": 5,
+      "bounds": {
+        "min_value": 3,
+        "max_value": 20,
+        "expansion_step": 5
+      }
+    },
+    {
+      "axis_id": "procrustes_anchor_count",
+      "kind": "integer_range",
+      "low": 32,
+      "high": 256,
+      "step": 32,
+      "default": 96,
+      "bounds": {
+        "min_value": 32,
+        "max_value": 256,
+        "expansion_step": 64
+      }
+    },
+    {
+      "axis_id": "dp_target_epsilon",
+      "kind": "choice",
+      "choices": [0.5, 1.0, 2.0, 4.0],
+      "default": 2.0,
+      "bounds": {
+        "min_value": 0.25,
+        "max_value": 4.0,
+        "expansion_step": 2.0
+      }
+    },
+    {
+      "axis_id": "dp_target_delta",
+      "kind": "choice",
+      "choices": [1e-6, 1e-5, 1e-4],
+      "default": 1e-5,
+      "bounds": {
+        "min_value": 1e-7,
+        "max_value": 1e-4,
+        "expansion_step": 1e-4
+      }
+    },
+    {
+      "axis_id": "dp_l2_clip_norm",
+      "kind": "choice",
+      "choices": [0.5, 1.0, 1.5],
+      "default": 1.0,
+      "bounds": {
+        "min_value": 0.25,
+        "max_value": 2.0,
+        "expansion_step": 0.5
+      }
+    },
+    {
+      "axis_id": "woodbury_ridge_lambda",
+      "kind": "choice",
+      "choices": [0.1, 0.5, 1.0, 2.0],
+      "default": 0.5,
+      "bounds": {
+        "min_value": 0.05,
+        "max_value": 4.0,
+        "expansion_step": 1.0
+      }
+    },
+    {
+      "axis_id": "enforce_pii_redaction_on_share",
+      "kind": "boolean",
+      "default": true,
+      "bounds": {
+        "min_value": 0,
+        "max_value": 1,
+        "expansion_step": 0
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "constraint_id": "subspace_strictly_smaller_than_raw_encoder",
+      "left_axis": "subspace_dim",
+      "operator": "<",
+      "right_axis": "raw_encoder_dim"
+    },
+    {
+      "constraint_id": "subspace_at_most_anchor_count",
+      "left_axis": "subspace_dim",
+      "operator": "<=",
+      "right_axis": "procrustes_anchor_count"
+    }
+  ],
+  "regimes": {
+    "home_family_nas_regime": {
+      "description": "Low-RAM home & family NAS profile: 24-d Procrustes (96 B/file), eps=2.0 multi-user DP personalization",
+      "cell": {
+        "subspace_dim": 24,
+        "raw_encoder_dim": 1024,
+        "rrf_rank_constant": 60,
+        "rrf_semantic_weight": 0.65,
+        "search_top_k": 5,
+        "procrustes_anchor_count": 96,
+        "dp_target_epsilon": 2.0,
+        "dp_target_delta": 1e-5,
+        "dp_l2_clip_norm": 1.0,
+        "woodbury_ridge_lambda": 0.5,
+        "enforce_pii_redaction_on_share": true
+      }
+    },
+    "studio_creator_pro_nas_regime": {
+      "description": "Media/code studio profile on iDX6011 Pro with dense cross-modal anchor calibration",
+      "cell": {
+        "subspace_dim": 24,
+        "raw_encoder_dim": 1024,
+        "rrf_rank_constant": 40,
+        "rrf_semantic_weight": 0.75,
+        "search_top_k": 5,
+        "procrustes_anchor_count": 128,
+        "dp_target_epsilon": 4.0,
+        "dp_target_delta": 1e-5,
+        "dp_l2_clip_norm": 1.0,
+        "woodbury_ridge_lambda": 0.5,
+        "enforce_pii_redaction_on_share": true
+      }
+    },
+    "smb_team_compliance_nas_regime": {
+      "description": "Strict multi-account SMB NAS regime with tighter eps=1.0 DP Woodbury privacy budget",
+      "cell": {
+        "subspace_dim": 24,
+        "raw_encoder_dim": 1024,
+        "rrf_rank_constant": 60,
+        "rrf_semantic_weight": 0.55,
+        "search_top_k": 5,
+        "procrustes_anchor_count": 96,
+        "dp_target_epsilon": 1.0,
+        "dp_target_delta": 1e-6,
+        "dp_l2_clip_norm": 1.0,
+        "woodbury_ridge_lambda": 1.0,
+        "enforce_pii_redaction_on_share": true
+      }
+    }
+  },
+  "triage_cartridge_spec": {
+    "in_dim": 3,
+    "out_dim": 4,
+    "expected_wasm_bytes": 256,
+    "input_offset_bytes": 64,
+    "output_offset_bytes": 80,
+    "bias_offset_bytes": 48,
+    "categories": [
+      "archive_docs",
+      "engineering_code",
+      "media_gallery",
+      "compliance_records"
+    ],
+    "feature_names": [
+      "code_syntax_density",
+      "media_exif_density",
+      "structured_record_density"
+    ],
+    "weights_4x3": [
+      [-1.1, -1.1, -1.1],
+      [2.6, -0.7, -0.6],
+      [-0.6, 2.7, -0.6],
+      [-0.6, -0.7, 2.6]
+    ],
+    "bias_4": [0.85, -0.25, -0.25, -0.25],
+    "init_neg_inf_f32": -1.0e30
+  },
+  "wasm_compact_constants": {
+    "magic_and_version": [0, 97, 115, 109, 1, 0, 0, 0],
+    "sec_type": 1,
+    "sec_function": 3,
+    "sec_memory": 5,
+    "sec_export": 7,
+    "sec_code": 10,
+    "sec_data": 11,
+    "type_func": 96,
+    "val_i32": 127,
+    "val_f32": 125,
+    "export_func": 0,
+    "export_memory": 2,
+    "local_groups": 2,
+    "local_i32_cnt": 3,
+    "local_f32_cnt": 2,
+    "loc_r": 0,
+    "loc_c": 1,
+    "loc_best_idx": 2,
+    "loc_acc": 3,
+    "loc_best_val": 4,
+    "block_void": 64,
+    "op_block": 2,
+    "op_loop": 3,
+    "op_if": 4,
+    "op_end": 11,
+    "op_br": 12,
+    "op_br_if": 13,
+    "op_lget": 32,
+    "op_lset": 33,
+    "op_fload": 42,
+    "op_fstore": 56,
+    "op_iconst": 65,
+    "op_fconst": 67,
+    "op_ige": 78,
+    "op_fgt": 94,
+    "op_iadd": 106,
+    "op_imul": 108,
+    "op_ishl": 116,
+    "op_fadd": 146,
+    "op_fmul": 148,
+    "f32_shift_log2": 2,
+    "leb_cont": 128,
+    "leb_mask": 127,
+    "leb_sign": 64,
+    "leb_shift": 7
+  },
+  "dp_constants": {
+    "gaussian_c_const": 1.25,
+    "gram_budget_share": 0.45,
+    "rhs_budget_share": 0.55,
+    "delta_split_share": 0.5,
+    "rdp_alpha_min": 2,
+    "rdp_alpha_max": 64,
+    "folder_class_count": 4
+  },
+  "service_constants": {
+    "loopback_host": "127.0.0.1",
+    "http_ok": 200,
+    "http_created": 201,
+    "http_bad_request": 400,
+    "http_not_found": 404,
+    "socket_backlog": 8,
+    "max_body_bytes": 262144
+  },
+  "numerical_constants": {
+    "two": 2,
+    "three": 3,
+    "four": 4,
+    "five": 5,
+    "six": 6,
+    "eight": 8,
+    "ten": 10,
+    "sixteen": 16,
+    "f32_bytes": 4,
+    "bytes_per_mb": 1000000.0,
+    "one_million_files": 1000000,
+    "pct_scale": 100.0,
+    "short_id_chars": 8,
+    "round_digits": 4,
+    "six_digits": 6,
+    "two_digits": 2,
+    "eps": 1e-9,
+    "logit_parity_tol": 1e-5,
+    "ns_per_us": 1000.0,
+    "wasm_warmup_loops": 2000,
+    "wasm_bench_loops": 20000,
+    "native_bench_loops": 50000,
+    "subprocess_timeout_sec": 25,
+    "max_sub_microsecond_us": 0.5,
+    "fts_candidate_multiplier": 6,
+    "benchmark_topic_count": 16,
+    "personalization_train_per_user": 36,
+    "personalization_eval_per_user": 24,
+    "personalization_user_count": 4
+  }
+}

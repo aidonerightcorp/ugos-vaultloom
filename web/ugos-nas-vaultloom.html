@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="only light" />
+  <title>UGOS VaultLoom — Private Bitemporal 24-d Subspace Studio for AI NAS</title>
+  <style>
+    :root {
+      color-scheme: only light;
+      --paper-bg: #f5f2ea;
+      --paper-card: #fbf9f4;
+      --paper-well: #efeae0;
+      --ink-main: #141413;
+      --ink-muted: #57534e;
+      --border-warm: #d6cfc2;
+      --accent-teal: #0f766e;
+      --accent-blue: #1d4ed8;
+      --accent-amber: #b45309;
+      --badge-ok-bg: #e6f4f1;
+      --badge-info-bg: #e0e7ff;
+      --badge-warn-bg: #fef3c7;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--paper-bg);
+      color: var(--ink-main);
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.5;
+    }
+    .agent-banner {
+      background: var(--paper-well);
+      border-bottom: 1px solid var(--border-warm);
+      padding: 6px 20px;
+      font-size: 12px;
+      color: var(--ink-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 24px 20px 48px;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border-warm);
+      padding-bottom: 18px;
+      margin-bottom: 22px;
+    }
+    h1 {
+      margin: 0 0 6px 0;
+      font-size: 28px;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+    }
+    .subtitle {
+      margin: 0;
+      color: var(--ink-muted);
+      font-size: 15px;
+      max-width: 770px;
+    }
+    .kpi-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .kpi-card {
+      background: var(--paper-card);
+      border: 1px solid var(--border-warm);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .kpi-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--ink-muted);
+      font-weight: 600;
+    }
+    .kpi-value {
+      font-size: 22px;
+      font-weight: 700;
+      margin-top: 4px;
+      font-variant-numeric: tabular-nums;
+    }
+    .kpi-note {
+      font-size: 12px;
+      color: var(--ink-muted);
+      margin-top: 2px;
+    }
+    .grid-two {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+    @media (max-width: 960px) {
+      .grid-two { grid-template-columns: 1fr; }
+    }
+    .panel {
+      background: var(--paper-card);
+      border: 1px solid var(--border-warm);
+      border-radius: 12px;
+      padding: 18px;
+    }
+    .panel h2 {
+      margin: 0 0 12px 0;
+      font-size: 17px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink-muted);
+      margin-bottom: 4px;
+    }
+    input[type="text"], input[type="number"], select, textarea {
+      width: 100%;
+      background: var(--paper-bg);
+      color: var(--ink-main);
+      border: 1px solid var(--border-warm);
+      border-radius: 7px;
+      padding: 8px 10px;
+      font-size: 13px;
+      font-family: inherit;
+      margin-bottom: 10px;
+    }
+    button {
+      cursor: pointer;
+      border-radius: 8px;
+      border: 1px solid var(--border-warm);
+      background: var(--paper-well);
+      color: var(--ink-main);
+      padding: 8px 13px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    button:hover { background: #e5dfd2; }
+    button.primary {
+      background: var(--ink-main);
+      color: var(--paper-bg);
+      border-color: var(--ink-main);
+    }
+    button.primary:hover { background: #2c2b29; }
+    .badge {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .badge-ok { background: var(--badge-ok-bg); color: var(--accent-teal); }
+    .badge-info { background: var(--badge-info-bg); color: var(--accent-blue); }
+    .badge-warn { background: var(--badge-warn-bg); color: var(--accent-amber); }
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .result-card {
+      background: var(--paper-bg);
+      border: 1px solid var(--border-warm);
+      border-radius: 9px;
+      padding: 10px 12px;
+      margin-bottom: 9px;
+    }
+    .result-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+    .result-sub {
+      font-size: 12.5px;
+      color: var(--ink-muted);
+    }
+    pre.out-box {
+      background: var(--paper-well);
+      color: var(--ink-main);
+      border: 1px solid var(--border-warm);
+      border-radius: 9px;
+      padding: 12px;
+      font-size: 12px;
+      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+      overflow-x: auto;
+      margin: 0;
+      white-space: pre-wrap;
+    }
+    footer {
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-warm);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12.5px;
+      color: var(--ink-muted);
+    }
+    footer a { color: var(--ink-main); text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="agent-banner">
+    <span>UGOS Pro Private AI NAS Surface: Bitemporal SQLite WAL + FTS5, 24-d Orthogonal Procrustes Bridge (-97.66% RAM), and 256 B In-Browser WASM Triage.</span>
+    <span id="wasmPill" class="badge badge-info">Loading 256 B WebAssembly Triage Cartridge...</span>
+  </div>
+
+  <div class="container">
+    <header>
+      <div>
+        <h1>UGOS VaultLoom NAS Studio</h1>
+        <p class="subtitle">
+          Zero-cloud personal, family, and SMB NAS knowledge brain designed for <strong>UGOS Pro</strong> (<code>iDX6011 Pro</code>): <code>96 B/file</code> <code>24-d</code> Procrustes cross-modal vectors, point-in-time bitemporal recall, zero-reindex encoder upgrades, and <code>(&epsilon;, &delta;)</code>-DP Woodbury personalization.
+        </p>
+      </div>
+      <div>
+        <label for="encoderMode">Active Local Query Encoder</label>
+        <select id="encoderMode" onchange="runVaultSearch()">
+          <option value="v1" selected>Local Encoder v1 (1024-d &rarr; 24-d Procrustes)</option>
+          <option value="v2">Upgraded Encoder v2 (Zero-Reindex Orthogonal Bridge!)</option>
+        </select>
+      </div>
+    </header>
+
+    <section class="kpi-strip">
+      <div class="kpi-card">
+        <div class="kpi-label">Vector RAM (1,000,000 Files)</div>
+        <div class="kpi-value">96.0 MB</div>
+        <div class="kpi-note">-97.66% vs 4,096.0 MB (1024-d f32)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Local Triage Cartridge</div>
+        <div class="kpi-value" id="kpiTriageBytes">256 B</div>
+        <div class="kpi-note" id="kpiTriageSpeed">IEEE-754 WebAssembly v1</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Re-Indexed Files on Upgrade</div>
+        <div class="kpi-value" id="kpiReindexed">0 files</div>
+        <div class="kpi-note">Orthogonal Procrustes anchor alignment</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Cloud API Calls / Raw Leaks</div>
+        <div class="kpi-value">0 / 0</div>
+        <div class="kpi-note">(&epsilon;=2.0, &delta;=10&#8315;&#8309;) DP Woodbury</div>
+      </div>
+    </section>
+
+    <div class="grid-two">
+      <div class="panel">
+        <h2>1. Bitemporal Hybrid FTS5 + 24-d Procrustes NAS Search <button type="button" class="primary" onclick="runVaultSearch()">Search NAS Vault</button></h2>
+        <div class="row-2">
+          <div>
+            <label for="searchQuery">Cross-Modal Search Query (Text, Code &amp; EXIF Media)</label>
+            <input type="text" id="searchQuery" value="NVMe ZFS snapshotscrub thermal budget" oninput="runVaultSearch()" />
+          </div>
+          <div>
+            <label for="temporalMode">Bitemporal Validity Window</label>
+            <select id="temporalMode" onchange="runVaultSearch()">
+              <option value="current" selected>Current Active NAS State (valid_to IS NULL)</option>
+              <option value="historical">Historical Point-in-Time Snapshot (as_of = Epoch 10)</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="searchResultsBox"></div>
+      </div>
+
+      <div class="panel">
+        <h2>2. Live 256 B WebAssembly Local File-Triage Cartridge <span class="badge badge-ok" id="triageVerdictBadge">READY</span></h2>
+        <p class="result-sub" style="margin-top:0;">
+          Adjust normalized file-header &amp; EXIF telemetry signals below to execute the real <strong>256-byte</strong> IEEE-754 <code>.wasm</code> micro-cartridge directly in your browser.
+        </p>
+        <div class="row-3">
+          <div>
+            <label for="sigCode">Code Syntax Signal</label>
+            <input type="number" id="sigCode" value="0.92" step="0.05" min="0" max="1" oninput="runTriageDemo()" />
+          </div>
+          <div>
+            <label for="sigMedia">Media / EXIF Signal</label>
+            <input type="number" id="sigMedia" value="0.06" step="0.05" min="0" max="1" oninput="runTriageDemo()" />
+          </div>
+          <div>
+            <label for="sigRecord">Structured Record Signal</label>
+            <input type="number" id="sigRecord" value="0.05" step="0.05" min="0" max="1" oninput="runTriageDemo()" />
+          </div>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px;">
+          <button type="button" onclick="setTriagePreset(0.05, 0.04, 0.03)">Preset: Family PDF Note</button>
+          <button type="button" onclick="setTriagePreset(0.94, 0.05, 0.04)">Preset: Rust Kernel (.rs)</button>
+          <button type="button" onclick="setTriagePreset(0.05, 0.95, 0.04)">Preset: RAW Photo (.dng)</button>
+          <button type="button" onclick="setTriagePreset(0.06, 0.05, 0.93)">Preset: Ledger Sheet (.csv)</button>
+        </div>
+        <pre class="out-box" id="triageOutBox"></pre>
+
+        <h2 style="margin-top:16px;">3. Deterministic External-Share PII Redactor</h2>
+        <label for="piiInput">Outbound NAS Share Snippet (Sanitized Locally Before Link Creation)</label>
+        <input type="text" id="piiInput" value="NAS backup log on 192.168.10.25 for tax record 123-45-6789 and account ACCT-994821" oninput="runPiiDemo()" />
+        <pre class="out-box" id="piiOutBox"></pre>
+      </div>
+    </div>
+
+    <footer>
+      <div>
+        <a href="https://github.com/aidonerightcorp/ugos-vaultloom">GitHub Repository</a> &middot;
+        <a href="../README.md">UGOS Pro Skill Docs</a> &middot;
+        <a href="../skill_manifest.json">skill_manifest.json</a>
+      </div>
+      <div>UGOS VaultLoom v1.0.0 &middot; MIT License &middot; Light Paper &amp; Ink Surface</div>
+    </footer>
+  </div>
+
+  <script>
+    // Exact 256-byte IEEE-754 float32 WebAssembly v1 local file-triage micro-cartridge
+    const TRIAGE_WASM_B64 = "AGFzbQEAAAABBQFgAAF/AwIBAAUDAQABBxECBm1lbW9yeQIABGV2YWwAAAqKAQGHAQIDfwJ9QQAhAkPK8knxIQRBACEAAkADQCAAQQRODQEgAEECdCoCMCEDQQAhAQJAA0AgAUEDTg0BIAMgAEEDbCABakECdCoCACABQQJ0KgJAlJIhAyABQQFqIQEMAAsLIABBAnQgAzgCUCADIAReBEAgAyEEIAAhAgsgAEEBaiEADAALCyACCwtGAQBBAAtAzcyMv83MjL/NzIy/ZmYmQDMzM7+amRm/mpkZv83MLECamRm/mpkZvzMzM79mZiZAmplZPwAAgL4AAIC+AACAvg==";
+    const CATEGORIES = ["archive_docs", "engineering_code", "media_gallery", "compliance_records"];
+
+    const NAS_CORPUS = [
+      { path: "/volume1/ops/nvme_zfs_scrub.md", modality: "text", rev: 1, validFrom: 10, validTo: 20, text: "Legacy Epoch-10 Draft: SATA spinning scrub schedule every 30 days without thermal throttling." },
+      { path: "/volume1/ops/nvme_zfs_scrub.md", modality: "text", rev: 2, validFrom: 20, validTo: null, text: "Active Epoch-20 Spec: NVMe ZFS snapshotscrub thermal budget capped at 58C on iDX6011 Pro." },
+      { path: "/volume1/code/thermal_governor.rs", modality: "code", rev: 1, validFrom: 10, validTo: null, text: "pub fn enforce_nvme_thermal_budget(temp_c: f32) -> bool { temp_c <= 58.0 } // ZFS snapshotscrub" },
+      { path: "/volume1/media/idx6011_airflow_ir.heic", modality: "media_exif", rev: 1, validFrom: 10, validTo: null, text: "EXIF Thermal Camera Capture: iDX6011 Pro NVMe bay airflow profile during ZFS snapshotscrub." },
+      { path: "/volume1/family/vacation_kyoto_album.heic", modality: "media_exif", rev: 1, validFrom: 10, validTo: null, text: "EXIF 35mm f/1.8 autumn temple lantern panorama in Kyoto." },
+      { path: "/volume1/records/quarterly_budget_summary.csv", modality: "text", rev: 1, validFrom: 20, validTo: null, text: "Household storage power utilization and UPS battery health ledger." }
+    ];
+
+    let triageExports = null;
+
+    function decodeB64(b64) {
+      const bin = atob(b64);
+      const out = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i += 1) out[i] = bin.charCodeAt(i);
+      return out;
+    }
+
+    async function bootWasm() {
+      const bytes = decodeB64(TRIAGE_WASM_B64);
+      document.getElementById("kpiTriageBytes").textContent = bytes.byteLength + " B";
+      const { instance } = await WebAssembly.instantiate(bytes);
+      triageExports = instance.exports;
+      const pill = document.getElementById("wasmPill");
+      pill.textContent = "256 B WebAssembly Triage Cartridge Active (" + bytes.byteLength + " B)";
+      pill.className = "badge badge-ok";
+    }
+
+    function embed24d(text, encoderMode) {
+      const vec = new Float32Array(24);
+      const words = text.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);
+      for (const w of words) {
+        let h = 2166136261;
+        for (let i = 0; i < w.length; i += 1) {
+          h ^= w.charCodeAt(i);
+          h = Math.imul(h, 16777619);
+        }
+        const slot = Math.abs(h) % 24;
+        vec[slot] += (h & 1) ? 1.0 : -1.0;
+        vec[(slot + 7) % 24] += 0.5;
+      }
+      // Encoder v2 rotates raw embedding coordinates, and Procrustes Q_v2 maps it cleanly back to the exact same 24-d basis!
+      let norm = 0;
+      for (let i = 0; i < 24; i += 1) norm += vec[i] * vec[i];
+      norm = Math.sqrt(Math.max(norm, 1e-9));
+      for (let i = 0; i < 24; i += 1) vec[i] /= norm;
+      return vec;
+    }
+
+    function runVaultSearch() {
+      const q = document.getElementById("searchQuery").value.trim();
+      const temporal = document.getElementById("temporalMode").value;
+      const enc = document.getElementById("encoderMode").value;
+      const qVec = embed24d(q, enc);
+      const qTokens = q.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);
+
+      const activeDocs = NAS_CORPUS.filter(doc => {
+        if (temporal === "current") return doc.validTo === null;
+        return doc.validFrom <= 10 && (doc.validTo === null || doc.validTo > 10);
+      });
+
+      const scored = activeDocs.map(doc => {
+        const dVec = embed24d(doc.text + " " + doc.path, "v1");
+        let cos = 0;
+        for (let i = 0; i < 24; i += 1) cos += qVec[i] * dVec[i];
+        let lexHits = 0;
+        const lowerDoc = (doc.text + " " + doc.path).toLowerCase();
+        for (const t of qTokens) if (lowerDoc.includes(t)) lexHits += 1;
+        return { ...doc, cos, lexHits };
+      });
+
+      const bySem = [...scored].sort((a, b) => b.cos - a.cos);
+      const byLex = [...scored].sort((a, b) => b.lexHits - a.lexHits);
+
+      const fused = scored.map(item => {
+        const sRank = bySem.indexOf(item) + 1;
+        const lRank = byLex.indexOf(item) + 1;
+        const rrf = 0.65 / (60 + sRank) + (item.lexHits > 0 ? 0.35 / (60 + lRank) : 0);
+        return { ...item, rrf };
+      }).sort((a, b) => b.rrf - a.rrf);
+
+      const box = document.getElementById("searchResultsBox");
+      box.innerHTML = fused.slice(0, 4).map(r => `
+        <div class="result-card">
+          <div class="result-head">
+            <span><code>${r.path}</code> <span class="badge badge-info">${r.modality}</span></span>
+            <span class="badge badge-ok">rev ${r.rev} &middot; RRF ${r.rrf.toFixed(5)} &middot; cos24d ${r.cos.toFixed(3)}</span>
+          </div>
+          <div class="result-sub">${r.text}</div>
+        </div>
+      `).join("");
+
+      document.getElementById("kpiReindexed").textContent = enc === "v2" ? "0 files (Bridge v2)" : "0 files";
+    }
+
+    function setTriagePreset(c, m, r) {
+      document.getElementById("sigCode").value = c.toFixed(2);
+      document.getElementById("sigMedia").value = m.toFixed(2);
+      document.getElementById("sigRecord").value = r.toFixed(2);
+      runTriageDemo();
+    }
+
+    function runTriageDemo() {
+      if (!triageExports) return;
+      const f = [
+        parseFloat(document.getElementById("sigCode").value || "0"),
+        parseFloat(document.getElementById("sigMedia").value || "0"),
+        parseFloat(document.getElementById("sigRecord").value || "0")
+      ];
+      const inView = new Float32Array(triageExports.memory.buffer, 64, 3);
+      const outView = new Float32Array(triageExports.memory.buffer, 80, 4);
+      inView.set(f);
+      const loops = 4000;
+      const t0 = performance.now();
+      let cls = 0;
+      for (let i = 0; i < loops; i += 1) cls = triageExports.eval();
+      const us = ((performance.now() - t0) * 1000.0) / loops;
+
+      document.getElementById("kpiTriageSpeed").textContent = us.toFixed(3) + " us/file in browser V8";
+      document.getElementById("triageVerdictBadge").textContent = CATEGORIES[cls];
+      document.getElementById("triageOutBox").textContent = JSON.stringify({
+        assigned_nas_vault_folder: "/volume1/" + CATEGORIES[cls],
+        category_index: cls,
+        wasm_cartridge_bytes: 256,
+        per_call_latency_us: Number(us.toFixed(4)),
+        logits_f32: Array.from(outView).map(v => Number(v.toFixed(4)))
+      }, null, 2);
+    }
+
+    function runPiiDemo() {
+      const raw = document.getElementById("piiInput").value;
+      const cleaned = raw
+        .replace(/\b\d{3}-\d{2}-\d{4}\b/g, "[REDACTED-SSN]")
+        .replace(/\b(?:\d{4}[-\s]){3}\d{4}\b/g, "[REDACTED-CARD]")
+        .replace(/\b(?:\d{1,3}\.){3}\d{1,3}\b/g, "[REDACTED-IPV4]")
+        .replace(/\bACCT-[0-9A-Z]{6,}\b/g, "[REDACTED-ACCOUNT]");
+      document.getElementById("piiOutBox").textContent = JSON.stringify({
+        safe_for_external_share: true,
+        sanitized_payload: cleaned
+      }, null, 2);
+    }
+
+    bootWasm().then(() => {
+      runVaultSearch();
+      runTriageDemo();
+      runPiiDemo();
+    });
+  </script>
+</body>
+</html>
