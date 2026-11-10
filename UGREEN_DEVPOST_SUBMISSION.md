@@ -1,48 +1,44 @@
-# UGREEN AI NAS Developer Challenge 2026 — Ready-to-Paste Devpost Entry (`UGOS VaultLoom`)
+# UGREEN AI NAS Developer Challenge 2026 — Ready-to-Paste Devpost Entry (`UGOS VaultLoom v1.1.0`)
+
+- **Official Round-1 Submission Deadline:** **Sun Nov 15, 2026, 11:45 PM PT**
+- **Repository (`MIT`):** `https://github.com/aidonerightcorp/ugos-vaultloom` (`Release v1.1.0`)
 
 ## Project Title
-**UGOS VaultLoom — Zero-Cloud Bitemporal `24-d` Procrustes Brain & `256 B` WASM Triage Skill for AI NAS**
+**UGOS VaultLoom — Zero-Cloud Bitemporal `24-d` Procrustes Brain & Privacy Skill for UGREEN AI NAS**
 
 ## Tagline
-Index `1,000,000` personal, studio, or SMB NAS files in **`96 MB` RAM (`-97.66%`)** on `UGOS Pro` with bitemporal `SQLite FTS5` recall, zero-reindex model upgrades, `256 B` sub-microsecond WASM file triage, and `(epsilon, delta)`-DP multi-user personalization.
+Cut NAS vector RAM by **`97.66%` (`96 B/file`)** on `UGOS Pro` with bitemporal `SQLite FTS5` search, zero-reindex local model upgrades, `(epsilon, delta)`-DP multi-user folder routing, and outbound PII share redaction.
 
 ---
 
 ## Problem Statement: Why Current "AI on NAS" Breaks Down
-Putting AI on a private NAS promises data sovereignty, yet existing RAG and vector-database stacks fail real NAS owners in three ways:
-1. **RAM Exhaustion & Re-Indexing Lock-In:** Standard `1024-d` float32 embeddings consume `4,096 B/file` (**`4.09 GB` RAM per `1,000,000` files**), competing directly with ZFS ARC / Btrfs page cache, Docker apps, and 4K media transcoding. Worse, whenever a better local embedding model ships, users must re-embed terabytes of files from scratch.
-2. **Stale-File Hallucinations:** Flat vector indexes overwrite previous document states, causing local assistants to mix outdated contracts, superseded code configs, or old tax spreadsheets with current files.
-3. **Shared-NAS Privacy Leaks:** Families and SMB teams share a single NAS, but naive personalization leaks raw filenames and private folder habits across user accounts — and external share links risk leaking SSNs, IPs, or account numbers.
+Putting AI on a private NAS promises data ownership, yet standard local RAG and vector-index stacks fail home, creator-studio, and SMB `NASync` owners in three ways:
+1. **RAM Exhaustion & Re-Indexing Lock-In:** Standard `1024-d` float32 embeddings consume `4,096 B/file` (**`4.09 GB` vector RAM per `1,000,000` files**), competing directly with `UGOS Pro` filesystem cache, Docker containers, and 4K media workflows. Worse, upgrading a local embedding model normally forces multi-day full-disk re-indexing.
+2. **Stale-File Confusion:** Overwriting flat vector rows destroys document revision history, causing local assistants to mix superseded configs, old drafts, or prior spreadsheets with active files.
+3. **Shared-NAS Privacy Exposure:** Multi-account family and SMB NAS volumes lack mathematical isolation when learning folder/tag routing preferences across users — and external share captions risk leaking SSNs, IPv4 hosts, or account tokens.
 
 ---
 
-## Our Solution: `UGOS VaultLoom`
-**UGOS VaultLoom** is a lightweight, zero-cloud Debian Linux skill built natively for **UGREEN `UGOS Pro` (`NASync iDX6011 Pro`)**:
+## Proposed Solution: `UGOS VaultLoom` (`v1.1.0`)
+**UGOS VaultLoom** is an Uliya Skill package (`SKILL.md` + `references/*.md`) backed by an open-source Debian Linux reference CLI prototype engineered for **UGREEN `UGOS Pro` (`NASync iDX6011 Pro`)**:
 
-1. **`24-d` Orthogonal `Procrustes` Cross-Modal Subspace (`96 B/file`, `-97.66%` RAM):**
-   - Aligns `1024-d` text, source code, and photo/EXIF embeddings into a shared orthonormal `24-d` float32 subspace via compact SVD (`Q^T Q = I_24`).
-   - Shrinks vector storage from `4,096 B/file` to **`96 B/file`** — indexing **`1,000,000` NAS files in `96.0 MB` RAM** while achieving **`1.0000` `Recall@5`** across text, code, and media!
-   - **Zero-Reindex Encoder Upgrades:** Upgrading from `Encoder v1` to `Encoder v2` requires fitting only a tiny `96`-anchor Procrustes bridge in milliseconds — **`0` stored NAS files are re-indexed**.
-2. **Bitemporal `SQLite WAL + FTS5` Knowledge Index (`valid_from`, `valid_to`, `recorded_at`):**
-   - Fuses `FTS5 BM25` lexical scores with `24-d` Procrustes cosine similarity via Reciprocal Rank Fusion (`RRF`).
-   - Preserves full point-in-time revision history: current queries return **`0` stale revisions**, while `as_of` time-travel queries reconstruct exact historical NAS state (`1.0000` accuracy).
-3. **`256 B` `.wasm` / `C99` / `#![no_std]` `Rust` Local File-Triage Micro-Cartridges (`< 0.05 us`):**
-   - Compiles an exact **`256-byte` IEEE-754 float32 WebAssembly v1** module (plus bit-identical `C99` and `#![no_std]` `Rust` shared libraries) in memory to classify incoming NAS files at **`0.047 us/call`** in V8 and **`0.0044 us/call`** in `#![no_std]` Rust.
-4. **`(epsilon, delta)`-DP Recursive Woodbury Multi-User Personalization + PII Share Gate:**
-   - Adapts folder/tag routing across shared family or SMB accounts in closed form via Sherman-Morrison-Woodbury updates with Rényi-accounted Gaussian Differential Privacy (`+67.71%` accuracy uplift at $\epsilon = 2.0, \delta = 10^{-5}$, **`0` raw filenames leaked**), paired with deterministic PII stripping before any outbound share.
+1. **`24-d` Orthogonal `Procrustes` Cross-Modal Subspace (`96 B/file`, `-97.66%` Vector RAM):**
+   - Projects `1024-d` text, code, and photo/EXIF embeddings into a shared orthonormal `24-d` float32 subspace via compact SVD (`Q^T Q = I_24`), shrinking storage from `4,096 B/file` to **`96 B/file`** (`96.0 MB` vs `4,096.0 MB` per `1,000,000` vectors).
+   - **Zero-Reindex Encoder Upgrades:** Upgrading a local encoder (`v1 -> v2`) fits a `96`-anchor Procrustes bridge in milliseconds with **`0` stored NAS files re-indexed** (`1.0000` `Recall@5` on our `48`-item simulated tri-modal benchmark).
+2. **Bitemporal `SQLite WAL + FTS5` Hybrid Index (`valid_from`, `valid_to`, `recorded_at`):**
+   - Fuses `FTS5 BM25` lexical ranks with `24-d` Procrustes cosine similarity via Reciprocal Rank Fusion (`RRF`), returning **`0` stale revisions** on active queries while supporting exact `as_of` point-in-time historical queries.
+3. **`256 B` Local File-Triage Micro-Cartridge + `(epsilon, delta)`-DP Woodbury Routing + PII Share Gate:**
+   - Synthesizes an in-memory `256 B` IEEE-754 WebAssembly v1 file-triage module (`0.047 us/call` locally in Node V8), learns shared-NAS folder preferences via Rényi-accounted `(epsilon, delta)`-DP Sherman-Morrison-Woodbury updates (`+67.71%` routing lift across a `4`-account local simulation with `0` filenames leaked), and strips structured PII tokens before external sharing.
 
 ---
 
-## Round-1 Submission Deliverables
-1. **Linux Pre-Test Skill Archive (`ugos-vaultloom-skill-v1.0.0.zip`):** Self-contained Debian/Linux skill (`skill_manifest.json`, `bin/ugos-vaultloom-cli`, `src/`, `config/`, `install_and_selftest.sh`) — unzip anywhere and run `./install_and_selftest.sh` (`UGOS_VAULTLOOM_SELFTEST=PASS`).
-2. **Camera-Ready Proposal PDF (`ugos_vaultloom_proposal.pdf`):** 6-page technical architecture, measured benchmarks, `UGOS Pro` daemon integration, and Round-2 `UGREEN NASync iDX6011 Pro` hardware validation plan.
-3. **Interactive Browser NAS Studio (`web/ugos-nas-vaultloom.html`):** Zero-dependency Paper & Ink (`#f5f2ea`) browser studio running live `24-d` Procrustes bitemporal search, zero-reindex encoder switching, and real `256 B` `WebAssembly.instantiate` file triage.
-4. **Public MIT Repository & `18/18` Automated Test Suite:** `https://github.com/aidonerightcorp/ugos-vaultloom` (`Release v1.0.0`).
+## Honest Development Status (Round 1 Local vs. Round 2 Physical Hardware)
+- **Built & Tested Locally Today (`x86_64` Linux, `19/19` `pytest` passing):** Complete Uliya Markdown Skill (`SKILL.md` + 4 `references/*.md` guides), local reference CLI + loopback `127.0.0.1` / `AF_UNIX` service, `NodeGrid` configuration governance, bitemporal `SQLite WAL + FTS5` + `24-d` Procrustes engine, `256 B` WASM triage synthesizer, DP-Woodbury personalizer, PII redactor, and interactive Paper & Ink browser studio (`web/ugos-nas-vaultloom.html`).
+- **Pending Physical UGREEN Hardware Testing in Round 2 (`NASync iDX6011 Pro`):** Physical UGREEN NAS testing has **not** occurred yet. In Round 2 we will validate live `UGOS Pro` File Manager / AI Album event triggers, local Intel iGPU/NPU encoder throughput, multi-user SMB ACL boundaries, and `100k–1M` file NVMe + RAID latency on a physical `NASync iDX6011 Pro`.
 
 ---
 
-## Round-2 Hardware Validation Plan on `UGREEN NASync iDX6011 Pro`
-Upon Round-1 Top-30 advancement and remote/hardware access to the **`iDX6011 Pro`**:
-1. **NVMe + RAID Tiered Throughput:** Benchmark `SQLite WAL + FTS5` + `96 B/file` mmap scans across `1M–5M` files on `iDX6011 Pro` NVMe cache pools while measuring background power and CPU headroom (< `2%` idle RAM).
-2. **Local NPU / iGPU Encoder Bridge:** Pair `UGOS Pro`'s built-in local vision/text encoders on `iDX6011 Pro` with our `24-d` Procrustes bridge to index live camera-roll `.heic`/`.dng` uploads and SMB document shares at wire speed.
-3. **Multi-Account `UGOS Pro` Daemon Packaging:** Bind `src.local_skill_service` Unix-domain socket IPC into `UGOS Pro` App Center permissions with per-user `(epsilon, delta)`-DP Woodbury budgets.
+## Round-1 Submission Deliverables (`Release v1.1.0`)
+1. **Short Project Proposal PDF (`ugos_vaultloom_round1_proposal_500w.pdf`):** Answers all `10` required Round-1 substantive areas in strictly **`< 500` English words** (`< 1 MB`, light Paper & Ink layout), followed by a clearly separated `Excluded Administrative & License Disclosures Appendix`.
+2. **Uliya Pre-Test Skill Package (`ugos-vaultloom-uliya-skill-v1.1.0.zip`):** Strictly compliant **Markdown-only** Uliya Skill archive (`SKILL.md` + `references/cli-reference.md` + `references/orchestration-and-failure-modes.md` + `references/ugos-pro-permissions-and-privacy.md` + `references/test-cases-and-disclosures.md`, `< 10 MB` total, `< 1 MB` per file, configuration placeholders only, `0` executable binaries or unrequested scripts).
+3. **Optional Companion Local Reference CLI Repository (`https://github.com/aidonerightcorp/ugos-vaultloom`):** Full MIT Python/SQLite/WASM reference prototype (`19/19` automated `pytest` tests) and interactive browser studio.

@@ -1,8 +1,9 @@
-"""Comprehensive pytest suite (18 tests) for UGOS VaultLoom AI NAS bitemporal subspace & DP-Woodbury skill."""
+"""Comprehensive pytest suite (19 tests) for UGOS VaultLoom AI NAS bitemporal subspace, Uliya Skill & DP-Woodbury."""
 
 from __future__ import annotations
 
 import json
+import re
 import shutil
 import socket
 import subprocess
@@ -361,3 +362,56 @@ def test_18_browser_nas_studio_paper_and_ink_light_mode_and_zero_binaries_in_git
         and p.suffix.lower() in binary_exts
     ]
     assert found_bins == []
+
+
+def test_19_uliya_markdown_skill_standard_conformance() -> None:
+    skill_md = REPO_ROOT / "SKILL.md"
+    assert skill_md.is_file()
+    raw = skill_md.read_text(encoding="utf-8")
+    assert raw.startswith("---\n")
+    fm_end = raw.find("\n---\n", 4)
+    assert fm_end > 4
+    frontmatter = raw[4:fm_end]
+    body = raw[fm_end + 5 :]
+
+    fm_kv: dict[str, str] = {}
+    for line in frontmatter.splitlines():
+        if ":" in line:
+            k, v = line.split(":", 1)
+            fm_kv[k.strip()] = v.strip()
+
+    assert fm_kv.get("name") == "ugos-vaultloom"
+    assert re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", fm_kv["name"]) is not None
+    assert 2 <= len(fm_kv["name"]) <= 64
+    assert 20 <= len(fm_kv.get("description", "")) < 1024
+
+    for heading in (
+        "## 1. User Goal & Problem Solved",
+        "## 2. Required Inputs & Configuration Placeholders",
+        "## 3. Supported CLI Capabilities & Exact Command Contracts",
+        "## 4. Expert Agent Orchestration Workflow",
+        "## 5. Completion Criteria, Structured Error Codes & Failure/Fallback Handling",
+        "## 6. Explicit Disclosures",
+    ):
+        assert heading in body
+
+    for placeholder in ("UGOS_VOLUME_ROOT", "VAULTLOOM_DB_PATH", "LOCAL_EMBED_ENDPOINT"):
+        assert placeholder in body
+
+    ref_files = (
+        "references/cli-reference.md",
+        "references/orchestration-and-failure-modes.md",
+        "references/ugos-pro-permissions-and-privacy.md",
+        "references/test-cases-and-disclosures.md",
+    )
+    total_bytes = skill_md.stat().st_size
+    assert total_bytes < 1_048_576
+    for rel_ref in ref_files:
+        assert rel_ref in body
+        ref_path = REPO_ROOT / rel_ref
+        assert ref_path.is_file()
+        sz = ref_path.stat().st_size
+        assert 100 < sz < 1_048_576
+        total_bytes += sz
+    assert total_bytes < 10_485_760
+
