@@ -1,15 +1,15 @@
-# UGOS VaultLoom (`v1.1.0`)
+# UGOS VaultLoom (`v1.1.1`)
 
 **Zero-Cloud Bitemporal `SQLite WAL + FTS5`, `24-d` Orthogonal `Procrustes` Subspace (`-97.66%` Vector RAM) & `(epsilon, delta)`-DP Woodbury Personalization Skill for `UGOS Pro` AI NAS**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-141413.svg)](LICENSE)
-[![Uliya Skill](https://img.shields.io/badge/Uliya_Skill-Markdown_Standard_v1.1.0-0f766e.svg)](SKILL.md)
+[![Uliya Skill](https://img.shields.io/badge/Uliya_Skill-Markdown_Standard_v1.1.1-0f766e.svg)](SKILL.md)
 [![Target OS](https://img.shields.io/badge/Target-UGOS%20Pro%20Linux%20(x86__64%20%2F%20ARM64)-1d4ed8.svg)](skill_manifest.json)
 
-> **UGREEN AI NAS 2026 Challenge — Round-1 Submission (`v1.1.0`)**
+> **UGREEN AI NAS 2026 Challenge — Round-1 Submission (`v1.1.1`)**
 > - **Official Round-1 Deadline:** **Sun Nov 15, 2026, 11:45 PM PT**
-> - **Primary Deliverable 1 (`ugos_vaultloom_round1_proposal_500w.pdf`):** Short Project Proposal answering all `10` required substantive areas in strictly **`< 500` English words** plus a separated `Excluded Administrative & License Disclosures Appendix`.
-> - **Primary Deliverable 2 (`ugos-vaultloom-uliya-skill-v1.1.0.zip`):** Strictly compliant **Uliya Skill Development Standard** Markdown-only skill package (`SKILL.md` + `references/*.md`, `< 10 MB` total, `< 1 MB` per file, configuration placeholders only, `0` executable binaries or unrequested scripts inside the ZIP).
+> - **Primary Deliverable 1 (`ugos_vaultloom_round1_proposal_v111_500w.pdf`):** Short Project Proposal answering all `10` required substantive areas in strictly **`< 500` English words** (explicitly labeling the simulated `75.00%` accuracy against `25.00%` 4-folder chance and `7.29%` unadapted blank-matrix prior on the 4-account DP routing test, and made-up `24`-topic vectors without a live embedding model) plus a separated `Excluded Administrative & License Disclosures Appendix`.
+> - **Primary Deliverable 2 (`ugos-vaultloom-uliya-skill-v1.1.1.zip`):** Strictly compliant **Uliya Skill Development Standard** Markdown-only skill package (`SKILL.md` + `references/*.md`, `< 10 MB` total, `< 1 MB` per file, configuration placeholders only, `0` executable binaries or unrequested scripts inside the ZIP).
 > - **Repository Local Reference CLI Prototype (`src/`, `bin/ugos-vaultloom-cli`, `tests/`):** Runnable MIT-licensed local Linux reference CLI implementation and `19/19` automated `pytest` verification suite accompanying the Uliya Markdown skill specification.
 
 Home, creator-studio, and SMB NAS appliances face three painful bottlenecks when running local AI search and organization:
@@ -28,10 +28,10 @@ Home, creator-studio, and SMB NAS appliances face three painful bottlenecks when
 | Capability | Architectural Primitive | Local Linux Result | Exact Local Test Condition |
 | :--- | :--- | :--- | :--- |
 | **Ultra-Compact NAS Vector Index** | `24-d` Orthogonal `Procrustes` float32 subspace | **`96 B/file` (`-97.66%` RAM)** | Exact byte footprint: **`96.0 MB`** vs `4,096.0 MB` (`1024-d` float32) per `1,000,000` vectors |
-| **Bitemporal Hybrid Search** | `SQLite WAL + FTS5 BM25` + `24-d` cosine `RRF` | **`1.0000` `Recall@5`** | Simulated corpus: `16` topics $\times$ `3` modalities (`48` active items + `16` superseded drafts), `0` stale leaks |
-| **Zero-Reindex Model Upgrade** | SVD Orthogonal `Procrustes` query bridge | **`1.0000` `Recall@5` (`0` re-indexed)** | Simulated `Encoder v1 (1024-d)` $\to$ `Encoder v2 (1024-d)` swap via `96` calibration anchors |
+| **Bitemporal Hybrid Search** | `SQLite WAL + FTS5 BM25` + `24-d` cosine `RRF` | **`1.0000` `Recall@5`** | Simulated corpus of made-up vectors on `24` clean topic directions (`no` live embedding model): `16` topics $\times$ `3` modalities (`48` active + `16` superseded drafts), `0` stale leaks |
+| **Zero-Reindex Model Upgrade** | SVD Orthogonal `Procrustes` query bridge | **`1.0000` `Recall@5` (`0` re-indexed)** | Simulated `1024-d` random-matrix `Encoder v1` $\to$ `Encoder v2` swap on made-up `24`-topic vectors via `96` calibration anchors |
 | **Sub-Microsecond Local Triage** | In-memory **`256 B` `.wasm`** + `C99` + `#![no_std]` `Rust` | **`0.047 us` (WASM) / `0.0044 us` (Rust)** | Local `x86_64` 4-way IEEE-754 parity (`0.0` max logit diff across Python/Node V8/`gcc -O3`/`rustc`) |
-| **Private Multi-User Learning** | `(\epsilon, \delta)`-DP Recursive Woodbury solver | **`+67.71%` accuracy uplift** | Simulated `4`-account NAS workload (`75.00%` vs `7.29%`, $\epsilon=2.0, \delta=10^{-5}$, RDP $\epsilon=1.4086$, `0` filenames leaked) |
+| **Private Multi-User Learning** | `(\epsilon, \delta)`-DP Recursive Woodbury solver | **`75.00%` vs `25.00%` chance (`7.29%` prior)** | Simulated `4`-account NAS workload ($\epsilon=2.0, \delta=10^{-5}$, Rényi composed $\epsilon=1.4086$, `0` filenames leaked) |
 | **Safe Outbound Share Gate** | Deterministic local PII & host sanitizer | **`100%` structured token stripping** | Local UTF-8 test strings: SSNs, payment cards, IPv4 hosts, phone numbers & `ACCT-*` refs |
 
 ---
@@ -66,11 +66,11 @@ python3 -m http.server 8090
 
 ---
 
-## Release Assets (`v1.1.0`)
+## Release Assets (`v1.1.1` Built Locally & Staged for Owner Release)
 
-Both Round-1 primary submission deliverables are attached to [GitHub Release `v1.1.0`](https://github.com/aidonerightcorp/ugos-vaultloom/releases/tag/v1.1.0):
-1. `ugos-vaultloom-uliya-skill-v1.1.0.zip` — Markdown-only Uliya Skill package (`SKILL.md` + `references/*.md`, `< 10 MB` total, `< 1 MB` per file, `0` binaries/scripts).
-2. `ugos_vaultloom_round1_proposal_500w.pdf` — Strict `< 500`-word Paper & Ink Round-1 Short Project Proposal covering all `10` required substantive areas + Excluded Administrative & License Disclosures Appendix.
+Both Round-1 primary submission deliverables are built deterministically by `python3 build_ugos_v111_deliverables.py` into `dist/` (staged for owner-authorized GitHub Release `v1.1.1` on `aidonerightcorp/ugos-vaultloom`):
+1. `ugos-vaultloom-uliya-skill-v1.1.1.zip` — Markdown-only Uliya Skill package (`SKILL.md` + `references/*.md`, `< 10 MB` total, `< 1 MB` per file, `0` binaries/scripts).
+2. `ugos_vaultloom_round1_proposal_v111_500w.pdf` — Strict `< 500`-word Paper & Ink Round-1 Short Project Proposal covering all `10` required substantive areas + Excluded Administrative & License Disclosures Appendix.
 
 ## License
 

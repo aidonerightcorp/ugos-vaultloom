@@ -47,9 +47,9 @@ The Uliya agent invokes the local reference CLI (`ugos-vaultloom-cli`) using det
 
 2. **Local File-Triage Classification (`triage`):**
    ```bash
-   ugos-vaultloom-cli --db "${VAULTLOOM_DB_PATH}" triage --features "<TEXT_RATIO>,<EXIF_RATIO>,<CODE_RATIO>"
+   ugos-vaultloom-cli --db "${VAULTLOOM_DB_PATH}" triage --features "<CODE_SYNTAX_DENSITY>,<MEDIA_EXIF_DENSITY>,<STRUCTURED_RECORD_DENSITY>"
    ```
-   Classifies incoming files into `archive_docs`, `code_workspace`, `media_gallery`, or `ops_configs` via a `256 B` local triage cartridge.
+   Classifies incoming files into `archive_docs`, `engineering_code`, `media_gallery`, or `compliance_records` via a `256 B` local triage cartridge.
 
 3. **Bitemporal File Revision Indexing (`index`):**
    ```bash
@@ -114,6 +114,6 @@ Full verification tables and Round-2 test plans appear in [references/test-cases
    - **Pytest (`>=7.4`, dev/test only):** MIT License (`https://docs.pytest.org/en/stable/license.html`).
 2. **Principal Functionality Developed During the Competition & Honest Status:**
    - Built during the competition (`MIT` open-source): Uliya Skill Markdown specification (`SKILL.md` + `references/*.md`), `NodeGrid` declarative settings schema, bitemporal `SQLite WAL + FTS5` + `24-d` Orthogonal Procrustes engine, in-memory `256 B` WebAssembly triage cartridge synthesizer, `(\epsilon, \delta)`-DP Recursive Woodbury personalizer, outbound PII redactor, loopback CLI/IPC reference prototype, and light-mode browser studio.
-   - **Honest Hardware Status:** All current benchmarks (`96 B/file` = `-97.66%` vector RAM vs `1024-d`, `1.0000` `Recall@5` on a `48`-item simulated tri-modal corpus, `0.047 us` Node V8 WASM triage, `+67.71%` 4-account simulated DP folder-routing lift) were measured locally on x86_64 Linux (`19/19` passing `pytest` tests). Physical `UGREEN NASync iDX6011 Pro` hardware testing, live `UGOS Pro` AI Album hooks, and million-file RAID I/O benchmarks have **not** occurred yet and are scheduled for Round 2.
+   - **Honest Hardware Status:** All current benchmarks (`96 B/file` = `-97.66%` vector RAM vs `1024-d`, `1.0000` `Recall@5` on a `48`-item simulated tri-modal corpus built from made-up vectors on `24` clean topic directions with random-matrix encoders and no live embedding model, `0.047 us` Node V8 WASM triage, and `75.00%` 4-account simulated DP folder-routing accuracy against `25.00%` 4-folder chance and `7.29%` blank identity-matrix start) were measured locally on x86_64 Linux (`19/19` passing `pytest` tests). Physical `UGREEN NASync iDX6011 Pro` hardware testing, live `UGOS Pro` AI Album hooks, and million-file RAID I/O benchmarks have **not** occurred yet and are scheduled for Round 2.
 3. **AI Tools Used:**
    - AI coding and documentation assistance (Google Gemini / Antigravity agentic IDE workflow) was used during competition development for code scaffolding, test generation, and documentation formatting; every algorithm, mathematical invariant, word-count check, and automated test was executed and verified deterministically on Linux.

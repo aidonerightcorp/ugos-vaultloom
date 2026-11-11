@@ -1,7 +1,7 @@
-# UGREEN AI NAS Developer Challenge 2026 — Ready-to-Paste Devpost Entry (`UGOS VaultLoom v1.1.0`)
+# UGREEN AI NAS Developer Challenge 2026 — Ready-to-Paste Devpost Entry (`UGOS VaultLoom v1.1.1`)
 
 - **Official Round-1 Submission Deadline:** **Sun Nov 15, 2026, 11:45 PM PT**
-- **Repository (`MIT`):** `https://github.com/aidonerightcorp/ugos-vaultloom` (`Release v1.1.0`)
+- **Repository (`MIT`):** `https://github.com/aidonerightcorp/ugos-vaultloom` (`v1.1.1` staged locally; `v1.1.0` currently live on GitHub until owner runs `stage_ugos_v111_release.sh --execute`)
 
 ## Project Title
 **UGOS VaultLoom — Zero-Cloud Bitemporal `24-d` Procrustes Brain & Privacy Skill for UGREEN AI NAS**
@@ -19,16 +19,16 @@ Putting AI on a private NAS promises data ownership, yet standard local RAG and 
 
 ---
 
-## Proposed Solution: `UGOS VaultLoom` (`v1.1.0`)
+## Proposed Solution: `UGOS VaultLoom` (`v1.1.1`)
 **UGOS VaultLoom** is an Uliya Skill package (`SKILL.md` + `references/*.md`) backed by an open-source Debian Linux reference CLI prototype engineered for **UGREEN `UGOS Pro` (`NASync iDX6011 Pro`)**:
 
 1. **`24-d` Orthogonal `Procrustes` Cross-Modal Subspace (`96 B/file`, `-97.66%` Vector RAM):**
    - Projects `1024-d` text, code, and photo/EXIF embeddings into a shared orthonormal `24-d` float32 subspace via compact SVD (`Q^T Q = I_24`), shrinking storage from `4,096 B/file` to **`96 B/file`** (`96.0 MB` vs `4,096.0 MB` per `1,000,000` vectors).
-   - **Zero-Reindex Encoder Upgrades:** Upgrading a local encoder (`v1 -> v2`) fits a `96`-anchor Procrustes bridge in milliseconds with **`0` stored NAS files re-indexed** (`1.0000` `Recall@5` on our `48`-item simulated tri-modal benchmark).
+   - **Zero-Reindex Encoder Upgrades:** Upgrading a local encoder (`v1 -> v2`) fits a `96`-anchor Procrustes bridge in milliseconds with **`0` stored NAS files re-indexed** (`1.0000` `Recall@5` on our `48`-item simulated tri-modal benchmark, which uses made-up vectors on `24` clean topic directions and no embedding model).
 2. **Bitemporal `SQLite WAL + FTS5` Hybrid Index (`valid_from`, `valid_to`, `recorded_at`):**
    - Fuses `FTS5 BM25` lexical ranks with `24-d` Procrustes cosine similarity via Reciprocal Rank Fusion (`RRF`), returning **`0` stale revisions** on active queries while supporting exact `as_of` point-in-time historical queries.
 3. **`256 B` Local File-Triage Micro-Cartridge + `(epsilon, delta)`-DP Woodbury Routing + PII Share Gate:**
-   - Synthesizes an in-memory `256 B` IEEE-754 WebAssembly v1 file-triage module (`0.047 us/call` locally in Node V8), learns shared-NAS folder preferences via Rényi-accounted `(epsilon, delta)`-DP Sherman-Morrison-Woodbury updates (`+67.71%` routing lift across a `4`-account local simulation with `0` filenames leaked), and strips structured PII tokens before external sharing.
+   - Synthesizes an in-memory `256 B` IEEE-754 WebAssembly v1 file-triage module (`0.047 us/call` locally in Node V8), learns shared-NAS folder preferences via Rényi-accounted `(epsilon, delta)`-DP Sherman-Morrison-Woodbury updates (`75.0%` routing accuracy against `25%` chance in a `4`-account, `4`-folder local simulation with `0` filenames leaked), and strips structured PII tokens before external sharing.
 
 ---
 
@@ -38,7 +38,7 @@ Putting AI on a private NAS promises data ownership, yet standard local RAG and 
 
 ---
 
-## Round-1 Submission Deliverables (`Release v1.1.0`)
-1. **Short Project Proposal PDF (`ugos_vaultloom_round1_proposal_500w.pdf`):** Answers all `10` required Round-1 substantive areas in strictly **`< 500` English words** (`< 1 MB`, light Paper & Ink layout), followed by a clearly separated `Excluded Administrative & License Disclosures Appendix`.
-2. **Uliya Pre-Test Skill Package (`ugos-vaultloom-uliya-skill-v1.1.0.zip`):** Strictly compliant **Markdown-only** Uliya Skill archive (`SKILL.md` + `references/cli-reference.md` + `references/orchestration-and-failure-modes.md` + `references/ugos-pro-permissions-and-privacy.md` + `references/test-cases-and-disclosures.md`, `< 10 MB` total, `< 1 MB` per file, configuration placeholders only, `0` executable binaries or unrequested scripts).
+## Round-1 Submission Deliverables (`v1.1.1`)
+1. **Short Project Proposal PDF (`ugos_vaultloom_round1_proposal_v111_500w.pdf`):** Answers all `10` required Round-1 substantive areas in strictly **`< 500` English words** (`< 1 MB`, light Paper & Ink layout, explicitly stating the simulated `75%` against `25%` 4-folder chance DP routing result), followed by a clearly separated `Excluded Administrative & License Disclosures Appendix`.
+2. **Uliya Pre-Test Skill Package (`ugos-vaultloom-uliya-skill-v1.1.1.zip`):** Strictly compliant **Markdown-only** Uliya Skill archive (`SKILL.md` + `references/cli-reference.md` + `references/orchestration-and-failure-modes.md` + `references/ugos-pro-permissions-and-privacy.md` + `references/test-cases-and-disclosures.md`, `< 10 MB` total, `< 1 MB` per file, configuration placeholders only, `0` executable binaries or unrequested scripts).
 3. **Optional Companion Local Reference CLI Repository (`https://github.com/aidonerightcorp/ugos-vaultloom`):** Full MIT Python/SQLite/WASM reference prototype (`19/19` automated `pytest` tests) and interactive browser studio.

@@ -1,7 +1,7 @@
 {
   "skill_id": "ugos.vaultloom.bitemporal_subspace_vault",
   "display_title": "UGOS VaultLoom — Private Bitemporal Subspace Brain",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "license": "MIT",
   "target_os": "UGOS Pro (Debian Linux 12+, x86_64 / ARM64)",
   "target_hardware_profile": "UGREEN NASync iDX6011 Pro / DXP Series",

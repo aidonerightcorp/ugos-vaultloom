@@ -85,7 +85,7 @@ Executes hybrid `SQLite FTS5 BM25` + `24-d` Procrustes cosine Reciprocal Rank Fu
 ```
 
 ### 2.4 `triage`
-Evaluates normalized 3-feature file ratios (`<TEXT_RATIO>,<EXIF_RATIO>,<CODE_RATIO>` in `[0.0, 1.0]`) through the local `256 B` linear-ReLU cartridge.
+Evaluates normalized 3-feature file ratios (`<CODE_SYNTAX_DENSITY>,<MEDIA_EXIF_DENSITY>,<STRUCTURED_RECORD_DENSITY>` in `[0.0, 1.0]`) through the local `256 B` linear-ReLU cartridge into `archive_docs`, `engineering_code`, `media_gallery`, or `compliance_records`.
 
 ```json
 {
